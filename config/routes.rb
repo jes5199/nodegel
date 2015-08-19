@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get '//invite', to: 'invite#index'
+  get ':name/:author', to: 'node#zoom'
+  get ':name', to: 'node#view'
+  post ':name', to: 'node#edit'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
