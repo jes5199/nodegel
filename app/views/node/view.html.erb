@@ -5,14 +5,8 @@
   <br>
   you could change that
 <% end %>
-<%= render partial: "node", collection: @nodes %>
+<%= render partial: "node", collection: @nodes, locals: {your_node: @your_node} %>
 
-
-<div>
-<form method="POST">
-  <h2><%= @name %> by you, last saved never</h2>
-<textarea id="node-edit">
-</textarea>
-<input type="button" value="[save now]"></input>
-</form>
-</div>
+<% unless @your_node %>
+  <%= render partial: "node_edit" %>
+<% end %>
