@@ -1,2 +1,8 @@
-<h1>Node#view</h1>
-<p>Find me in app/views/node/view.html.erb</p>
+<h1><%= @name %></h1>
+
+<% if @nodes.blank? %>
+  this nodeshell is empty
+  <br>
+  you could change that
+<% end %>
+<%= render partial: "node", collection: @nodes %>
