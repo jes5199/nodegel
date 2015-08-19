@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from_user_id: 1
+  key: horse battery stapler
+  created_user_id: 2
+
+two:
+  from_user_id: 2
+  key: obvious key phrase
+  created_user_id: 3
