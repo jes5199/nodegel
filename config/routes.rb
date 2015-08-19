@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  get '//invite', to: 'invite#index'
+  get 'invite/index'
+
+  get 'invite/request'
+
+  get 'invite/claim'
+
+  get '/ /invite', to: 'invite#index'
+  get '/ /sign up', to: 'invite#wish'
   get ':name/:author', to: 'node#zoom'
   get ':name', to: 'node#view'
   post ':name', to: 'node#edit'

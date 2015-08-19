@@ -5,8 +5,8 @@
   <br>
   you could change that
 <% end %>
-<%= render partial: "node", collection: @nodes, locals: {your_node: @your_node} %>
+<%= render partial: "node", collection: @nodes, locals: {current_user: @current_user} %>
 
-<% unless @your_node %>
+<% if @current_user and not @your_node %>
   <%= render partial: "node_edit" %>
 <% end %>

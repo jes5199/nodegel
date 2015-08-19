@@ -1,4 +1,4 @@
-<% if node == your_node %>
+<% if node.author == current_user %>
     <%= render partial: "node_edit", object: node %>
 <% else %>
 <div>
