@@ -49,3 +49,24 @@ input {
   border-color: Transparent;
   overflow: auto;
 }
+
+input.login {
+  border: 1px solid white;
+  width:300px;
+  margin:5px;
+  padding: 5px;
+}
+
+input.login.button {
+  border: none;
+  width:305px;
+  margin:5px;
+  padding: 5px;
+}
+
+label.login {
+  width:100px;
+  display: inline-block;
+  text-align: right;
+  padding: 10px;
+}
