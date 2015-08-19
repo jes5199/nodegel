@@ -2,5 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(() ->
-    $('#node-edit').autoGrow())
+$(document).on('page:change', (event) ->
+    $('#node-edit').autoGrow()
+    if(window.history.replaceState)
+        window.history.replaceState({},"",window.location.pathname.replace(/%20/g, "\u00A0"))
+)
