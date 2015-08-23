@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   get 'invite/request'
 
-  get 'invite/claim'
-
   get '/ /invite', to: 'invite#index'
+  get '/ /invite/:key', to: 'invite#claim'
+
   get '/ /sign up', to: 'invite#wish'
   get '/ /log in', to: 'user#login'
   get ':name/:author', to: 'node#zoom'
