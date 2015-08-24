@@ -1,2 +1,4 @@
-<h1>Invite#claim</h1>
-<p>Find me in app/views/invite/claim.html.erb</p>
+<% if @claimable %>
+<% else %>
+<span class="denied">ACCESS DENIED</span>
+<% end %>

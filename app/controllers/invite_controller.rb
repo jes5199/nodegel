@@ -10,5 +10,6 @@ class InviteController < ApplicationController
     if @invite
       @invitor = @invite.from_user
     end
+    @claimable = @invite && !@invite.created_user
   end
 end
