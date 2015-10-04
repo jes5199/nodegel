@@ -4,6 +4,9 @@ class NodeController < ApplicationController
       return redirect_to(request.url)
     end
     @namespace = params[:namespace]
+    if @namespace != "*"
+      return render :not_ready
+    end
     @name = params[:name]
     @nodes = Node.where(name: @name, namespace: @namespace)
     @your_node = @nodes.where(author: current_user).first() || Node.new(name: @name, author: current_user, namespace: @namespace)
@@ -14,6 +17,6 @@ class NodeController < ApplicationController
   end
 
   def zoom
-      #(name, author)
+    return render :not_ready
   end
 end
