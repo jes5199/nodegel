@@ -68,12 +68,13 @@ textarea {
   font-family: 'Open Sans', Verdana, sans-serif;
   background-color: black;
   color: white;
-  width: 100%;
+  width: 80%;
   height: 100%;
   border: none;
   border-color: Transparent;
   outline: none;
   overflow: auto;
+  resize: none;
 }
 
 input {
