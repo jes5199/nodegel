@@ -4,6 +4,9 @@ class NodeController < ApplicationController
       return redirect_to(request.url)
     end
     @namespace = params[:namespace]
+    if @namespace == " "
+        return redirect_to('/')
+    end
     if @namespace != "*"
       return render :not_ready
     end
