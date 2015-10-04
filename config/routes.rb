@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get ':name', to: 'node#view'
   post ':name', to: 'node#edit'
 
+  get '/' => redirect("/%20/log%20in")
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
