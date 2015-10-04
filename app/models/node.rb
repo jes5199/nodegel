@@ -31,7 +31,7 @@ class Node < ActiveRecord::Base
     body = self.body
     body = unspecial(body)
     body = sanitize(body)
-    body = body.gsub("\n", "<br>\n")
+    body = body.gsub(/\r?\n/, "<br>\r\n")
     body = body.gsub(/\[.*?\]/){|bracket| linkify bracket}
     return body.html_safe
   end

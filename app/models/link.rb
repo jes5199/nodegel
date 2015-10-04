@@ -22,7 +22,18 @@ class Link
   end
 
   def parse_link(link)
-    link ||= @current_node.to_s
+    if !link || link.strip.empty?
+        link = @current_node.to_s
+    end
+    if link == '/'
+      return "*", "welcome home"
+    end
+    if link == '..'
+      return @current_node.namespace, nil, nil
+    end
+    if link == '.'
+      return @current_node.namespace, @current_node.name, nil
+    end
     link = unfakespace(link)
     if link[0] == '/'
       parts = link[1..-1].split('/', -1)
@@ -34,10 +45,20 @@ class Link
         end
       end
       name = parts.join(fake_slash)
+      name = name.strip
+      if name.empty?
+        name = nil
+      end
     else
       namespace = nil
       author = nil
-      name = link.gsub('/', fake_slash)
+      name = link.gsub('/', fake_slash).strip
+    end
+    if namespace =~ /^\s+$/
+      namespace = " "
+    end
+    if namespace && namespace != ' '
+      namespace = namespace.strip
     end
     if namespace == '.'
       namespace = nil
@@ -50,7 +71,7 @@ class Link
 
   def format_direct(text)
     namespace, name, author = parse_link(text)
-    return format_link(namespace, name, author, name)
+    return format_link(namespace, name, author, name || namespace)
   end
 
   def format_with_destination(text, dest)
@@ -73,13 +94,16 @@ class Link
     end
     alive = alive_nodes.any?
     if namespace
-      link = "/" + d(namespace) + "/" + d(name)
+      link = "/" + d(namespace)
+      if name
+         link += "/" + d(name)
+      end
     else
       link = "./" + d(name)
     end
     if author
       link += "/" + d(author)
     end
-    return ("<a href=\"" + link + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + text + "</a>")
+    return ("<a href=\"" + link + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + text.strip + "</a>")
   end
 end
