@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   get '/ /invite/:key', to: 'invite#claim'
 
   get '/ /sign up', to: 'invite#wish'
+
   get '/ /log in', to: 'user#login'
+  post '/ /log in', to: 'user#login'
+
   get ':name/:author', to: 'node#zoom'
   get ':name', to: 'node#view'
   post ':name', to: 'node#edit'
