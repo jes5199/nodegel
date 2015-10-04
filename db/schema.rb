@@ -11,9 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819072345) do
+ActiveRecord::Schema.define(version: 3) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "invites", force: :cascade do |t|
+    t.integer  "users_id"
     t.integer  "from_user_id"
     t.string   "key"
     t.integer  "created_user_id"
@@ -21,10 +25,12 @@ ActiveRecord::Schema.define(version: 20150819072345) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "invites", ["created_user_id"], name: "index_invites_on_created_user_id"
-  add_index "invites", ["from_user_id"], name: "index_invites_on_from_user_id"
+  add_index "invites", ["created_user_id"], name: "index_invites_on_created_user_id", using: :btree
+  add_index "invites", ["from_user_id"], name: "index_invites_on_from_user_id", using: :btree
+  add_index "invites", ["users_id"], name: "index_invites_on_users_id", using: :btree
 
   create_table "nodes", force: :cascade do |t|
+    t.integer  "users_id"
     t.integer  "author_id"
     t.string   "name"
     t.string   "noun_type"
@@ -33,8 +39,9 @@ ActiveRecord::Schema.define(version: 20150819072345) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "nodes", ["author_id"], name: "index_nodes_on_author_id"
-  add_index "nodes", ["name"], name: "index_nodes_on_name"
+  add_index "nodes", ["author_id"], name: "index_nodes_on_author_id", using: :btree
+  add_index "nodes", ["name"], name: "index_nodes_on_name", using: :btree
+  add_index "nodes", ["users_id"], name: "index_nodes_on_users_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -44,4 +51,7 @@ ActiveRecord::Schema.define(version: 20150819072345) do
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "invites", "users", column: "created_user_id"
+  add_foreign_key "invites", "users", column: "from_user_id"
+  add_foreign_key "nodes", "users", column: "author_id"
 end

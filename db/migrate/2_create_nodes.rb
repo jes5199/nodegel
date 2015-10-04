@@ -1,12 +1,13 @@
 class CreateNodes < ActiveRecord::Migration
   def change
     create_table :nodes do |t|
-      t.references :author, index: true, foreign_key: true
+      t.references :users, :author, index: true
       t.string :name, index: true
       t.string :noun_type
       t.text :body
 
       t.timestamps null: false
     end
+    add_foreign_key :nodes, :users, column: :author_id
   end
 end
