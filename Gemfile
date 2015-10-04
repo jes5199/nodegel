@@ -27,6 +27,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'rails-html-sanitizer'
 
+gem "humanize"
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

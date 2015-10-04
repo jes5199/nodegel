@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   get ':namespace/:name', to: 'node#node', :constraints => {:namespace => /[^\/]+/, :name => /[^\/]+/}
   post ':namespace/:name', to: 'node#node', :constraints => {:namespace => /[^\/]+/, :name => /[^\/]+/}
 
+  get ':namespace', to: 'namespace#namespace', :constraints => {:namespace => /[^\/]+/}
+
   get '/' => redirect("/%20/log%20in")
 
   # The priority is based upon order of creation: first created -> highest priority.

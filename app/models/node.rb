@@ -39,4 +39,8 @@ class Node < ActiveRecord::Base
   def to_s
     "/" + [self.namespace, self.name, self.author].join('/')
   end
+
+  def node_time
+    return NodeTime.new(updated_at)
+  end
 end

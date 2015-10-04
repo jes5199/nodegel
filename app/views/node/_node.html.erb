@@ -1,5 +1,5 @@
 <div>
-  <h2><%= node.name %> by <%= node.author.name %> at <%= node.created_at %>
+  <h2><%= node.name %> by <%= node.author.name %>, written <%= node.node_time %>
     <% if node.author == current_user %>
         <label for="node-edit">[edit!]</label>
     <% end %>
