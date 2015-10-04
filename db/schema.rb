@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 3) do
   create_table "nodes", force: :cascade do |t|
     t.integer  "users_id"
     t.integer  "author_id"
+    t.string   "namespace"
     t.string   "name"
     t.string   "noun_type"
     t.text     "body"
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(version: 3) do
 
   add_index "nodes", ["author_id"], name: "index_nodes_on_author_id", using: :btree
   add_index "nodes", ["name"], name: "index_nodes_on_name", using: :btree
+  add_index "nodes", ["namespace", "name", "author_id"], name: "index_nodes_on_namespace_and_name_and_author_id", unique: true, using: :btree
+  add_index "nodes", ["namespace"], name: "index_nodes_on_namespace", using: :btree
   add_index "nodes", ["users_id"], name: "index_nodes_on_users_id", using: :btree
 
   create_table "users", force: :cascade do |t|
