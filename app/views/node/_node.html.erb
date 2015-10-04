@@ -1,9 +1,9 @@
-<% if node.author == current_user %>
-    <%= render partial: "node_edit", object: node %>
-<% else %>
 <div>
-  <h2><%= node.name %> by <%= node.author.name %> at <%= node.created_at %></h2>
+  <h2><%= node.name %> by <%= node.author.name %> at <%= node.created_at %>
+    <% if node.author == current_user %>
+        <label for="node-edit">(edit!)</label>
+    <% end %>
+  </h2>
   <div><%= node.render_body %></div>
   <br>
 </div>
-<% end %>

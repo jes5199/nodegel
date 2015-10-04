@@ -7,6 +7,6 @@
 <% end %>
 <%= render partial: "node", collection: @nodes, locals: {current_user: @current_user} %>
 
-<% if @current_user && !@your_node %>
+<% if @current_user %>
   <%= render partial: "node_edit" %>
 <% end %>

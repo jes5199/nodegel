@@ -75,6 +75,7 @@ textarea {
   outline: none;
   overflow: auto;
   resize: none;
+  text-align:center;
 }
 
 input {
@@ -114,4 +115,15 @@ label.login {
 
 #footer {
   padding-top: 40px;
+}
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid white;
+    border-width: 1px;
+    width: 50%;
 }

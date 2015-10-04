@@ -12,8 +12,8 @@ Rails.application.routes.draw do
   post '/ /log in', to: 'user#login'
 
   get ':namespace/:name/:author', to: 'node#zoom'
-  get ':namespace/:name', to: 'node#view'
-  post ':namespace/:name', to: 'node#edit'
+  get ':namespace/:name', to: 'node#node'
+  post ':namespace/:name', to: 'node#node'
 
   get '/' => redirect("/%20/log%20in")
 

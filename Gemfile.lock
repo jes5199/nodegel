@@ -147,6 +147,7 @@ DEPENDENCIES
   jquery-rails
   pg (~> 0.18.3)
   rails (= 4.2.4)
+  rails-html-sanitizer
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
