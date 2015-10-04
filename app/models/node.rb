@@ -9,25 +9,34 @@ class Node < ActiveRecord::Base
       []
   end
 
+  def unspecial(text)
+    text = text.gsub("\u00A0",' ')
+    text = text.gsub("\u2215",'/')
+  end
+
   def sanitize(body)
     Rails::Html::WhiteListSanitizer.new().sanitize(body, tags: allowed_tags, attributes: allowed_attributes)
   end
 
   def linkify(bracket)
     text = bracket[1...-1]
-    text, dest = text.split('|', 2)
-    dest ||= text
-    if dest[0] == '/'
-        namespace, dest = dest.split('/', 2)
-    else
-        namespace = nil
-    end
-    dest = dest.gsub('/', "\u2215")
-    alive = Node.where(name: dest, namespace: namespace || self.namespace ).any?
-    return ("<a href=\"" + (namespace||".") + "/" + dest +"\" class=\"" + (alive ? "link" : "new-link") + "\">" + text + "</a>")
+    return Link.new(text, self)
+  end
+
+  def editable_body
+    return unspecial(self.body || '')
   end
 
   def render_body
-    return sanitize(self.body).gsub("\n", "<br>\n").gsub(/\[.*?\]/){|bracket| linkify bracket}.html_safe
+    body = self.body
+    body = unspecial(body)
+    body = sanitize(body)
+    body = body.gsub("\n", "<br>\n")
+    body = body.gsub(/\[.*?\]/){|bracket| linkify bracket}
+    return body.html_safe
+  end
+
+  def to_s
+    "/" + [self.namespace, self.name, self.author].join('/')
   end
 end

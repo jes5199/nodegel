@@ -3,7 +3,7 @@
 <hr>
 <%= form_tag nil, method: "post" do%><a name="edit"></a>
   <h2><%= @name %> by you, last saved never</h2>
-<textarea id="node-edit" name="node" autofocus><%= @your_node.body %></textarea><br>
+<textarea id="node-edit" name="node" autofocus><%= @your_node.editable_body %></textarea><br>
 <input type="submit" value="[save now]"></input>
 <% end %>
 </div>
