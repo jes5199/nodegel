@@ -20,10 +20,11 @@ class Node < ActiveRecord::Base
     if dest[0] == '/'
         namespace, dest = dest.split('/', 2)
     else
-        namespace = '.'
+        namespace = nil
     end
     dest = dest.gsub('/', "\u2215")
-    return ("<a href=\"" + namespace + "/" + dest +"\">" + text + "</a>")
+    alive = Node.where(name: dest, namespace: namespace || self.namespace ).any?
+    return ("<a href=\"" + (namespace||".") + "/" + dest +"\" class=\"" + (alive ? "link" : "new-link") + "\">" + text + "</a>")
   end
 
   def render_body
