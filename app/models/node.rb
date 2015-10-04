@@ -43,4 +43,12 @@ class Node < ActiveRecord::Base
   def node_time
     return NodeTime.new(updated_at)
   end
+
+  def written_or_updated
+    if updated_at - created_at < 12.hours
+      return "written"
+    else
+      return "updated"
+    end
+  end
 end
