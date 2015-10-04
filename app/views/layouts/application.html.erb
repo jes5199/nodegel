@@ -17,9 +17,15 @@
 <%= yield %>
 
 <div id="footer">
-<% if not @current_user %><a href="/ /log in">[ log in ]</a><% end %>
-<% if not @current_user %><a href="/ /sign up">[ sign up ]</a><% end %>
-<% if @current_user %><a href="/ /log out">[ log out ]</a><% end %>
+<hr>
+<% if not @current_user %>
+  <a href="/ /log in">[ log in ]</a>
+  <a href="/ /sign up">[ sign up ]</a>
+<% end %>
+<% if @current_user %>
+  <a href="/*/welcome home">[ welcome ]</a>
+  <a href="/ /log out">[ log out ]</a>
+<% end %>
 </div>
 
 </body>
