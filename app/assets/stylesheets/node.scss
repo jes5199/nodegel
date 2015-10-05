@@ -103,6 +103,11 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+input[name="secret"] {
+  width: 50%;
+  text-align:center;
+}
+
 input.login.button {
   border: none;
   width:305px;

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 3) do
+ActiveRecord::Schema.define(version: 5) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 3) do
 
   add_index "invites", ["created_user_id"], name: "index_invites_on_created_user_id", using: :btree
   add_index "invites", ["from_user_id"], name: "index_invites_on_from_user_id", using: :btree
+  add_index "invites", ["key"], name: "index_invites_on_key", unique: true, using: :btree
   add_index "invites", ["users_id"], name: "index_invites_on_users_id", using: :btree
 
   create_table "nodes", force: :cascade do |t|
@@ -53,6 +54,8 @@ ActiveRecord::Schema.define(version: 3) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
+
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
   add_foreign_key "invites", "users", column: "created_user_id"
   add_foreign_key "invites", "users", column: "from_user_id"

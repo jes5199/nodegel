@@ -1,4 +1,8 @@
-<% if @claimable %>
-<% else %>
-<span class="denied">ACCESS DENIED</span>
+<h1><%= @invite.key %></h1>
+<div>you're almost there</div>
+<%= form_tag "/%20/invite/consume", method: "post" do %>
+    <label for="login-name" class="login">name</label><input id="login-name" name="name" class="login"></input><br>
+    <label for="login-pass" class="login">pass</label><input id="login-pass" name="pass" class="login" type="password"></input><br>
+    <label for="login-confirm" class="login">pass</label><input id="login-confirm" name="confirm" class="login" type="password"></input><br>
+    <label class="login"></label><input class="login button" type="submit" value="[become]"></input>
 <% end %>

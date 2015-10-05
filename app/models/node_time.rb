@@ -17,13 +17,16 @@ class NodeTime
     end
     if now - @timestamp < 1.day
       hours = (((now - @timestamp) / 60).to_i / 60)
+      if hours == 1
+        return "an hour ago"
+      end
       return hours.humanize + " hours ago"
     end
     if now - @timestamp < 2.days
       return "yesterday"
     end
     if now - @timestamp < 7.days
-      return %w[sunday monday tuesday wednesday thursday friday saturday][@timestamp.wday]
+      return "on " + %w[sunday monday tuesday wednesday thursday friday saturday][@timestamp.wday]
     end
     if now - @timestamp < 14.days
       return "last " + %w[sunday monday tuesday wednesday thursday friday saturday][@timestamp.wday]

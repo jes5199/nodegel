@@ -2,7 +2,7 @@
 <br>
 <hr>
 <%= form_tag nil, method: "post" do%><a name="edit"></a>
-  <h2><%= @name %> by you, last saved <%= @your_node.updated_at.in_time_zone("US/Pacific").strftime("%b %-d, %Y %l:%M%p") %></h2>
+  <h2><%= @name %> by you (<%= @current_user %>), last saved <%= @your_node.updated_at ? @your_node.updated_at.in_time_zone("US/Pacific").strftime("%b %-d, %Y %l:%M%p") : "never" %></h2>
 <textarea id="node-edit" name="node" autofocus><%= @your_node.editable_body %></textarea><br>
 <input type="submit" value="[save now]"></input>
 <% end %>

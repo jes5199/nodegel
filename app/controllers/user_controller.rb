@@ -8,8 +8,8 @@ class UserController < ApplicationController
       user = User.find_by_name(params[:name]).try(:authenticate, params[:pass])
       if user
         session[:current_user_id] = user.id
-        redirect_to(welcome_home)
         flash[:error] = nil
+        redirect_to(welcome_home)
       else
         flash[:error] = "ACCESS DENIED"
       end
