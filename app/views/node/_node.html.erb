@@ -1,8 +1,12 @@
 <hr>
 <div>
-  <h2><%= node.name %> by <%= node.author.name %>, <%= node.written_or_updated %> <%= node.node_time %>
+  <h2>
     <% if node.author == current_user %>
-        <label for="node-edit">[edit!]</label>
+        <label for="node-edit">
+    <% end %>
+    <%= node.name %> by <%= node.author.name %>, <%= node.written_or_updated %> <%= node.node_time %>
+    <% if node.author == current_user %>
+        [edit!]</label>
     <% end %>
   </h2>
   <div><%= node.render_body %></div>

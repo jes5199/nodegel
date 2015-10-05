@@ -11,7 +11,7 @@ class NodeController < ApplicationController
       return render :not_ready
     end
     @name = params[:name]
-    @nodes = Node.where(name: @name, namespace: @namespace)
+    @nodes = Node.where(name: @name, namespace: @namespace).order(updated_at: :desc)
     @your_node = @nodes.where(author: current_user).first() || Node.new(name: @name, author: current_user, namespace: @namespace)
     if request.post?
       @your_node.body = params[:node]
