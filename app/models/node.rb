@@ -20,7 +20,7 @@ class Node < ActiveRecord::Base
 
   def linkify(bracket)
     text = bracket[1...-1]
-    return Link.new(text, self)
+    return Hardlink.new(text, self)
   end
 
   def editable_body

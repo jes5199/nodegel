@@ -17,6 +17,15 @@ class NodeController < ApplicationController
       @your_node.body = params[:node]
       @your_node.save!
     end
+    if request.referrer
+      uri = URI.parse(request.referrer)
+      from_link = Link.new(uri.path)
+      if from_link.namespace == @namespace
+        softlink = Softlink.find_or_create_by(namespace: @namespace, from_name: from_link.name, to_name: @name)
+        softlink.traversals += 1
+        softlink.save!
+      end
+    end
   end
 
   def zoom
