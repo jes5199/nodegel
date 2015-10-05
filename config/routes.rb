@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'invite/request'
 
   get '/ /invite', to: 'invite#index'
+  post '/ /invite', to: 'invite#activate'
   get '/ /invite/:key', to: 'invite#claim'
 
   get '/ /sign up', to: 'invite#wish'

@@ -1,2 +1,8 @@
-<h1>Invite#index</h1>
-<p>Find me in app/views/invite/index.html.erb</p>
+<h1>give a friend a housekey?</h1>
+<% if @total == 0 %>
+    you don't have any yet. bug jes about it.
+<% end %>
+<%= render partial: "invite", collection: @invites, locals: {current_user: @current_user} %>
+<% if @total > 0 and @unused == 0 %>
+    you don't have any spares right now. Consider bugging jes for more.
+<% end %>
