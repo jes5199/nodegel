@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 5) do
+ActiveRecord::Schema.define(version: 6) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 5) do
   add_index "nodes", ["namespace", "name", "author_id"], name: "index_nodes_on_namespace_and_name_and_author_id", unique: true, using: :btree
   add_index "nodes", ["namespace"], name: "index_nodes_on_namespace", using: :btree
   add_index "nodes", ["users_id"], name: "index_nodes_on_users_id", using: :btree
+
+  create_table "softlinks", force: :cascade do |t|
+    t.string   "namespace",              null: false
+    t.string   "from_name",              null: false
+    t.string   "to_name",                null: false
+    t.integer  "traversals", default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
