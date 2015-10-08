@@ -1,7 +1,7 @@
 require 'faye/websocket'
 
 class NoderPresence
-  KEEPALIVE_TIME = 15 # in seconds
+  KEEPALIVE_TIME = 5 # in seconds
 
   def initialize(app)
     @app     = app
@@ -32,6 +32,9 @@ class NoderPresence
         p [:open, ws.object_id, url]
         @client_urls[ws] = url
         @url_clients[url] << ws
+      end
+      ws.on :message do |event|
+        p [:message, ws.object_id, url, event.data]
       end
       ws.on :close do |event|
         url = @client_url.delete(ws)

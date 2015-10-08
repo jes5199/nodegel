@@ -18,6 +18,7 @@ class UserController < ApplicationController
 
   def logout
     if request.post?
+      Presence.saw_user_at(session[:current_user_id], nil, nil)
       flash[:message] = "don't be a stranger"
       session[:current_user_id] = nil
       redirect_to('/')

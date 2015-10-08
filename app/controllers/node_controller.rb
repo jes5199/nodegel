@@ -10,6 +10,7 @@ class NodeController < ApplicationController
     if @namespace != "*"
       return render :not_ready
     end
+    NoderPresence.say_to_url("/*/welcome%20home", {user: "bob", presence: 2, action: 'is', when: Time.now.to_i, verbing: Time.now.to_i})
 
     @name = params[:name]
     @nodes = Node.where(name: @name, namespace: @namespace).order(updated_at: :desc)
@@ -20,8 +21,6 @@ class NodeController < ApplicationController
       @your_node.body = params[:node]
       @your_node.noun_type = params[:noun_type]
       @your_node.save!
-    else
-      NoderPresence.say_to_url(current_link.to_href, {user: current_user.to_s, action: 'arrived', when: Time.now.to_i})
     end
     Presence.saw_user_at(current_user.id, @namespace, @name)
 
