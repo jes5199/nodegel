@@ -93,7 +93,7 @@ class Link
     if author
       link += "/" + d(author)
     end
-    return ("<a href=\"" + link + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + link_text + "</a>")
+    return ("<a href=\"" + link + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + link_text + "</a>").html_safe
   end
 
   def link_text
