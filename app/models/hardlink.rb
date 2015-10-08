@@ -5,11 +5,11 @@ class Hardlink
   end
 
   def to_s
-    text, dest = @content.split('|', 2)
-    if dest
+    dest, text = @content.split('|', 2)
+    if text
       Link.new(dest, text: text, from_node: @current_node).to_s
     else
-      Link.new(text, from_node: @current_node).to_s
+      Link.new(dest, from_node: @current_node).to_s
     end
   end
 end
