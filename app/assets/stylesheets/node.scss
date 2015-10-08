@@ -144,3 +144,17 @@ hr {
     border-width: 1px;
     width: 50%;
 }
+
+.top-right-go {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.footer-go {
+    display: inline;
+}
+
+.footer-go input {
+    width: 100px;
+}

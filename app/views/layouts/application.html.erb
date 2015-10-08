@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Nodegel</title>
+  <title>[<%= @name || 'nodegel' %>]</title>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -23,6 +23,7 @@
   <a href="/ /sign up">[ sign up ]</a>
 <% end %>
 <% if @current_user %>
+  <%= render partial: "node/go", locals: {section: "top", namespace: @namespace || '*', klass: 'footer-go'} %>
   <a href="/*/welcome home">[ welcome ]</a>
   <a href="/ /invite">[ invite ]</a>
   <a href="/ /log out">[ log out ]</a>

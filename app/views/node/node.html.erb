@@ -1,5 +1,5 @@
+<%= render partial: "go", locals: {section: "top", namespace: @namespace, klass: "top-right-go"} %>
 <h1><%= @name %></h1>
-
 <% if @nodes.blank? %>
   this nodeshell is empty
   <br>
@@ -9,10 +9,7 @@
 <hr>
 <h2 class="softlinks">softlinks</h2>
 <%= render partial: "softlink", collection: @softlinks, locals: {current_user: @current_user} %>
-<%= form_tag "/%20/go" do %>
-<input type="hidden" name="namespace" value="<%= @namespace %>"></input>
-<label class="visible-label" for="softlink-go-name">[&nbsp;</label><input name="name" id="softlink-go-name"></input><label class="visible-label" for="softlink-go-name">&nbsp;]</label>
-<% end %>
+<%= render partial: "go", locals: {section: "softlink", namespace: @namespace} %>
 
 <% if @current_user %>
   <%= render partial: "node_edit" %>

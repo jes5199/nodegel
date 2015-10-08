@@ -28,7 +28,7 @@ class Node < ActiveRecord::Base
   end
 
   def render_body
-    body = self.body
+    body = self.body.to_s
     body = unspecial(body)
     body = sanitize(body)
     body = body.gsub(/\r?\n/, "<br>\r\n")
