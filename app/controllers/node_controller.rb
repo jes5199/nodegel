@@ -58,4 +58,11 @@ class NodeController < ApplicationController
   def zoom
     return render :not_ready
   end
+
+  def quick
+    @namespace = params[:namespace]
+    @name = params[:name]
+    @search_results = (Node.search('name', @namespace, @name, 300) + Node.search('body', @namespace, @name, 300)).uniq
+    render layout: false
+  end
 end
