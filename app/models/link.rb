@@ -8,7 +8,7 @@ class Link
   attr_reader :namespace, :name, :author
 
   def to_s
-    return format_link(@namespace, @name, @author, @text || @name || @namespace)
+    return format_link(@namespace, @name, @author, link_text || @name || @namespace)
   end
 
   def fake_slash
@@ -96,6 +96,6 @@ class Link
   end
 
   def link_text
-    text.strip
+    @text.strip
   end
 end
