@@ -99,7 +99,7 @@ class Link
   end
 
   def d(urlpart)
-    return self.deslash(urlpart)
+    return self.class.deslash(urlpart)
   end
 
   def format_link(namespace, name, author, text)
