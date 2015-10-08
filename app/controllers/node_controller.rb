@@ -22,11 +22,6 @@ class NodeController < ApplicationController
       from_link = Link.new(URI.decode(uri.path).force_encoding("utf-8"))
       to_link = Link.new("/#{@namespace}/#{@name}")
       Softlink.traverse(from_link, to_link)
-      if from_link.namespace == @namespace
-        softlink = Softlink.find_or_create_by(namespace: @namespace, from_name: from_link.name, to_name: @name)
-        softlink.traversals += 1
-        softlink.save!
-      end
     end
     @softlinks = Softlink.where(namespace: @namespace, from_name: @name).order("traversals / Extract(EPOCH from (Now() - created_at)) DESC").limit(10)
   end

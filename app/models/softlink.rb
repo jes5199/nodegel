@@ -6,14 +6,16 @@ class Softlink < ActiveRecord::Base
     return if from_link.name == to_link.name
     raise(from_link.name.inspect + " and " + to_link.name.inspect)
 
-    softlink = Softlink.find_or_create_by(
-        namespace: from_link.namespace,
-        from_name: from_link.name,
-        to_name: to_link.name
-    )
-    softlink.traversals += 1
-    if softlink.save
-      return softlink
+    Softlink.transaction do
+      softlink = Softlink.find_or_create_by(
+          namespace: from_link.namespace,
+          from_name: from_link.name,
+          to_name: to_link.name
+      )
+      softlink.traversals += 1
+      if softlink.save
+        return softlink
+      end
     end
   end
 
