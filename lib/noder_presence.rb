@@ -5,24 +5,38 @@ class NoderPresence
 
   def initialize(app)
     @app     = app
-    @clients = []
+    @client_urls = {}
+    @url_clients = Hash.new{|h,k| h[k] = []}
     @@singleton = self
+  end
+
+  def self.say_to_url(url, data)
+    if @@singleton
+      @@singleton.say_to_url(url, data)
+    end
+  end
+
+  def say_to_url(url, data)
+    p [:saying, url, data]
+    @url_clients[url].each do |client|
+      p [client, data]
+      client.send(event.data)
+    end
   end
 
   def call(env)
     if Faye::WebSocket.websocket?(env)
       ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
       ws.on :open do |event|
-        p [:open, ws.object_id]
-        @clients << ws
-      end
-      ws.on :message do |event|
-        p [:message, event.data]
-        @clients.each {|client| client.send(event.data) }
+        url = URI.parse(ws.url).path
+        p [:open, ws.object_id, url]
+        @client_urls[ws] = url
+        @url_clients[url] << ws
       end
       ws.on :close do |event|
-        p [:close, ws.object_id, event.code, event.reason]
-        @clients.delete(ws)
+        url = @client_url.delete(ws)
+        p [:close, ws.object_id, url, event.code, event.reason]
+        @url_clients[url].delete(ws)
         ws = nil
       end
 
