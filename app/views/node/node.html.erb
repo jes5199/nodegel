@@ -1,5 +1,9 @@
-<%= render partial: "go", locals: {section: "top", namespace: @namespace, klass: "top-right-go"} %>
-<h1><%= @name %></h1>
+<h1><%= form_tag "/%20/go", {:class => 'title'} do %>
+    <%= hidden_field_tag "namespace", @namespace %>
+    <%= hidden_field_tag "page-name", @name, {id:"page-name"} %>
+    <%= text_field_tag "name", @name, class: "title" %>
+<% end %></h1>
+<div id="content">
 <%= render partial: "presences", locals: {current_user: @current_user, presences: @presences} %>
 <% if @nodes.blank? %>
   this nodeshell is empty
@@ -16,3 +20,4 @@
 <% if @current_user %>
   <%= render partial: "node_edit" %>
 <% end %>
+</div>

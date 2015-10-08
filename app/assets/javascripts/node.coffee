@@ -24,35 +24,35 @@ set_presence = (data) ->
         presence_message += " is " + (data["verbing"] || "here")
     $(".presences").prepend("<span class=\"presence-" + data.presence + "\">" + presence_message + ". </span>")
 
-document.set_presence = set_presence
+open_websocket = () ->
+    uri    = "ws://" + window.document.location.host + window.document.location.pathname
+    ws     = new WebSocket(uri)
+    ws.onmessage = (message) ->
+        data = JSON.parse(message.data)
+        console.log(data)
+        set_presence(data)
+    ws.onerror = (evt) ->
+        console.log("websocket error")
+    ws.onclose = (event) ->
+        console.log("websocket closed")
 
 $(document).ready((event) ->
     $('#node-edit').autoGrow()
     if(window.history.replaceState)
         window.history.replaceState({},"",window.location.pathname.replace(/%20/g, "\u00A0"))
-    scheme = "ws://"
-    uri    = scheme + window.document.location.host + window.document.location.pathname
-    ws     = new WebSocket(uri)
-    document.ws = ws
-    ws.onopen = () ->
-        setTimeout ( ->
-            console.log("sending")
-            ws.send(JSON.stringify({"echo": 1}))
-        ), 500
-    document.shout = () ->
-        ws.send(JSON.stringify({"echo": 1}))
-    ws.onmessage = (message) ->
-        data = JSON.parse(message.data)
-        console.log(data)
-        set_presence(data)
-        setTimeout ( ->
-            console.log("sending")
-            ws.send(JSON.stringify({"echo": 1}))
-        ), 500
-    ws.onerror = (evt) ->
-        console.log("websocket error")
-    ws.onclose = (event) ->
-        console.log("websocket closed")
+    open_websocket()
+    $('input.title').on("input", ->
+        if($('input.title').val() != $('#page-name').val())
+            $("#content").css("opacity", "0.05")
+        else
+            $("#content").css("opacity", "1.00")
+    )
+    $('input.title').on("change", ->
+        $('form.title').submit()
+    )
+    $('input.title').on("blur", ->
+        $("#content").css("opacity", "1.0")
+    )
 )
 
 

@@ -130,6 +130,12 @@ input {
   overflow: auto;
 }
 
+input.title {
+  color: white;
+  text-align: center;
+  font-weight: bold
+}
+
 input.login {
   border: 1px solid white;
   width:300px;

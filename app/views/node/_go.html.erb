@@ -1,4 +1,4 @@
 <%= form_tag "/%20/go", {:class => local_assigns[:klass]} do %>
-<input type="hidden" name="namespace" value="<%= namespace %>"></input>
+<%= hidden_field_tag "namespace", namespace %>
 <label class="visible-label" for="<%= section %>-go-name">[&nbsp;</label><input name="name" id="<%= section %>-go-name"></input><label class="visible-label" for="<%= section %>-go-name">&nbsp;]</label>
 <% end %>

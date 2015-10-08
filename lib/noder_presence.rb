@@ -32,7 +32,6 @@ class NoderPresence
             url = URI.parse(RespaceUrl.unspace(ws.url)).path
             @client_urls[ws] = url
             @url_clients[url] << ws
-            ws.send("{\"hello\": 1}")
         rescue => e
             print e
         end
