@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 8) do
+ActiveRecord::Schema.define(version: 9) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "annotationlinks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "node_id"
+    t.string   "text"
+    t.string   "destination"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "annotationlinks", ["node_id"], name: "index_annotationlinks_on_node_id", using: :btree
+  add_index "annotationlinks", ["user_id"], name: "index_annotationlinks_on_user_id", using: :btree
 
   create_table "invites", force: :cascade do |t|
     t.integer  "users_id"
@@ -81,6 +93,8 @@ ActiveRecord::Schema.define(version: 8) do
 
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
+  add_foreign_key "annotationlinks", "nodes"
+  add_foreign_key "annotationlinks", "users"
   add_foreign_key "invites", "users", column: "created_user_id"
   add_foreign_key "invites", "users", column: "from_user_id"
   add_foreign_key "nodes", "users", column: "author_id"
