@@ -34,6 +34,14 @@ class InviteController < ApplicationController
         return
       end
       user = User.new(name: params[:name], password: params[:pass], password_confirmation: params[:confirm])
+      if params[:pass] != params[:confirm]
+        flash[:error] = "Password confirmation has to match the password."
+        return
+      end
+      if not user.valid?
+        flash[:error] = "Usernames should only contain letters, numbers, symbols from !?.,-_' and spaces (but no crazy spacing okay)"
+        return
+      end
       user.save!
       @invite.created_user = user
       @invite.save!

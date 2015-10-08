@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password
-  validates_format_of :name, with: /\A[a-zA-Z0-9 _-]+\z/
+  validates_format_of :name, with: /\A[''a-zA-Z0-9!?. _-]+\z/
   validate :no_weird_spacing
 
   def to_s
