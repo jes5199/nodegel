@@ -17,7 +17,7 @@ class Softlink < ActiveRecord::Base
 
   def from_and_to_must_be_different
     if to_name == from_name
-      errors.add(:to_name, "can't be equal to from_name")
+      errors.add(:to_name, "can't be equal to from_name")
     end
   end
 end
