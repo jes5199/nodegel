@@ -23,13 +23,20 @@ class NodeController < ApplicationController
       Softlink.traverse(from_link, to_link)
     end
     @softlinks = Softlink.where(namespace: @namespace, from_name: @name).order("traversals / Extract(EPOCH from (Now() - created_at)) DESC").limit(10)
+    @search_results = (Node.search('name', @namespace, @name) + Node.search('body', @namespace, @name)).uniq
   end
 
   def go
+    from_link = Link.from_referrer(request.referrer)
     @namespace = params[:namespace]
     @name = params[:name]
-    to_link = Link.new("/#{@namespace}/#{@name}")
-    from_link = Link.from_referrer(request.referrer)
+    if @name.present?
+      to_link = Link.new("/#{@namespace}/#{@name}")
+    elsif from_link
+      to_link = from_link
+    else
+      to_link = Link.new("/*/welcome home")
+    end
     Softlink.traverse(from_link, to_link)
     return redirect_to(to_link.to_href)
   end

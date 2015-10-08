@@ -55,4 +55,16 @@ class Node < ActiveRecord::Base
   def link
     return Link.new("/#{@namespace}/#{@name}/#{@author}")
   end
+
+  def self.search(field, namespace, content)
+    matcher = content.gsub(/[_%\\]/){|x| "\\#{x}"}
+    matcher = "%#{matcher}%"
+    Node.where(namespace: namespace) \
+        .where("#{field} LIKE ?", matcher) \
+        .where("name != ?", content) \
+        .limit(10) \
+        .order(name: 'asc', updated_at: 'desc') \
+        .pluck("distinct on (name) name, updated_at") \
+        .map{|name, updated_at| Link.new("/#{namespace}/#{name}/", show_brackets: true)}
+  end
 end

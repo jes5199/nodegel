@@ -10,6 +10,7 @@
 <h2 class="softlinks">softlinks</h2>
 <%= render partial: "softlink", collection: @softlinks, locals: {current_user: @current_user} %>
 <%= render partial: "go", locals: {section: "softlink", namespace: @namespace} %>
+<%= render partial: "search_results", locals: {current_user: @current_user, search_results: @search_results} %>
 
 <% if @current_user %>
   <%= render partial: "node_edit" %>

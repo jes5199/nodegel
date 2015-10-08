@@ -8,6 +8,15 @@ class Link
   end
   attr_reader :namespace, :name, :author
 
+
+  def hash
+    [Link, @namespace, @name, @author, @text].hash
+  end
+
+  def eql?(other)
+    other.hash == self.hash
+  end
+
   def to_s
     return format_link(@namespace, @name, @author, link_text)
   end
