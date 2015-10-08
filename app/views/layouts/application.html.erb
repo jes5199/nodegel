@@ -24,9 +24,9 @@
 <% end %>
 <% if @current_user %>
   <%= render partial: "node/go", locals: {section: "top", namespace: @namespace || '*', klass: 'footer-go'} %>
-  <a href="/*/welcome home">[ welcome ]</a>
-  <a href="/ /invite">[ invite ]</a>
-  <a href="/ /log out">[ log out ]</a>
+  <a href="/*/welcome home"><nobr>[ welcome ]</nobr></a>
+  <a href="/ /invite"><nobr>[ invite ]</nobr></a>
+  <a href="/ /log out"><nobr>[ log out ]</nobr></a>
 <% end %>
 </div>
 
