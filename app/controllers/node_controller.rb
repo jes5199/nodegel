@@ -23,10 +23,18 @@ class NodeController < ApplicationController
     else
       NoderPresence.say_to_url(current_link.to_href, {user: current_user.to_s, action: 'arrived', when: Time.now.to_i})
     end
+    Presence.saw_user_at(current_user.id, @namespace, @name)
+
     from_link = Link.from_referrer(request.referrer)
     if from_link
       Softlink.traverse(from_link, current_link)
     end
+
+    @presences = Presence \
+        .where(namespace: @namespace, name: @name) \
+        .where("user_id != ?", current_user.id) \
+        .where("updated_at > ?", 1.hour.ago)
+
     @softlinks = Softlink.where(namespace: @namespace, from_name: @name).order("traversals / Extract(EPOCH from (Now() - created_at)) DESC").limit(10)
     @search_results = (Node.search('name', @namespace, @name) + Node.search('body', @namespace, @name)).uniq
   end

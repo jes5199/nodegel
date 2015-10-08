@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 8) do
     t.string   "name"
     t.string   "previous_namespace"
     t.string   "previous_name"
+    t.string   "verbing"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end

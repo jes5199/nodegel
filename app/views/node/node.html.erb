@@ -1,5 +1,6 @@
 <%= render partial: "go", locals: {section: "top", namespace: @namespace, klass: "top-right-go"} %>
 <h1><%= @name %></h1>
+<%= render partial: "presences", locals: {current_user: @current_user, presences: @presences} %>
 <% if @nodes.blank? %>
   this nodeshell is empty
   <br>
