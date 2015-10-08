@@ -7,7 +7,7 @@
 <% end %>
 <%= render partial: "node", collection: @nodes, locals: {current_user: @current_user} %>
 <hr>
-<h2>softlinks</h2>
+<h2 class="softlinks">softlinks</h2>
 <%= render partial: "softlink", collection: @softlinks, locals: {current_user: @current_user} %>
 
 <% if @current_user %>
