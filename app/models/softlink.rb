@@ -25,7 +25,7 @@ class Softlink < ActiveRecord::Base
     end
   end
 
-  def link_text
-    "[#{super}]"
+  def to_s
+    Link.new("/#{self.namespace}/#{self.to_name}", show_brackets: true).to_s
   end
 end

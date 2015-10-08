@@ -3,6 +3,7 @@ class Link
     @destination = destination
     @from_node = extra[:from_node]
     @text = extra[:text]
+    @show_brackets = extra[:show_brackets]
     @namespace, @name, @author = parse_link(@destination)
   end
   attr_reader :namespace, :name, :author
@@ -96,6 +97,8 @@ class Link
   end
 
   def link_text
-    (@text || @name || @namespace || '').strip
+    text = (@text || @name || @namespace || '').strip
+    text = "[#{text}]" if @show_brackets
+    return text
   end
 end
