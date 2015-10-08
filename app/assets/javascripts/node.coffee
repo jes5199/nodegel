@@ -42,6 +42,11 @@ $(document).ready((event) ->
         window.history.replaceState({},"",window.location.pathname.replace(/%20/g, "\u00A0"))
     open_websocket()
     $('input.title').val( $('#page-name').val() )
+    $('input.title').on("keydown", (event) ->
+        if(event.keyCode == 27)
+            $('input.title').val( $('#page-name').val() )
+            $("#content").css("opacity", "1.00")
+    )
     $('input.title').on("input", ->
         if($('input.title').val() != $('#page-name').val())
             $("#content").css("opacity", "0.05")
