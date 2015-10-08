@@ -26,7 +26,8 @@ class NoderPresence
 
   def call(env)
     if Faye::WebSocket.websocket?(env)
-      ws = Faye::WebSocket.new(env)
+      ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
+
       ws.on :open do |event|
         begin
             url = URI.parse(RespaceUrl.unspace(ws.url)).path
