@@ -4,6 +4,7 @@ class Softlink < ActiveRecord::Base
   def self.traverse(from_link, to_link)
     return if from_link.namespace != to_link.namespace
     return if from_link.name == to_link.name
+    raise(from_link.name.inspect + " and " + to_link.name.inspect)
 
     softlink = Softlink.find_or_create_by(
         namespace: from_link.namespace,
