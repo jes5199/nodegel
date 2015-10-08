@@ -92,6 +92,10 @@ class Link
     if author
       link += "/" + d(author)
     end
-    return ("<a href=\"" + link + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + text.strip + "</a>")
+    return ("<a href=\"" + link + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + link_text + "</a>")
+  end
+
+  def link_text
+    text.strip
   end
 end

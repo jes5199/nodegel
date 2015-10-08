@@ -24,4 +24,8 @@ class Softlink < ActiveRecord::Base
       errors.add(:to_name, "can't be equal to from_name")
     end
   end
+
+  def link_text
+    "[#{super}]"
+  end
 end
