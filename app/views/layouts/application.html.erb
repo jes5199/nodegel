@@ -3,8 +3,8 @@
 <head>
   <title>[<%= @name || 'nodegel' %>]</title>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -29,6 +29,14 @@
   <a href="/ /log out">[ log out ]</a>
 <% end %>
 </div>
+
+<form id="input-form">
+    <input id="input-handle"></input>
+    <input id="input-text"></input>
+    <input type="submit"></input>
+</input>
+
+<div id="chat-text">chat</div>
 
 </body>
 </html>

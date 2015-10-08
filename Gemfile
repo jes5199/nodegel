@@ -31,6 +31,8 @@ gem "humanize"
 
 gem 'rails_12factor', group: :production
 
+gem 'faye', '~> 1.1.2'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
