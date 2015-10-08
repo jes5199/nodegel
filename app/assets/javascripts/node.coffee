@@ -41,6 +41,7 @@ $(document).ready((event) ->
     if(window.history.replaceState)
         window.history.replaceState({},"",window.location.pathname.replace(/%20/g, "\u00A0"))
     open_websocket()
+    $('input.title').val( $('#page-name').val() )
     $('input.title').on("input", ->
         if($('input.title').val() != $('#page-name').val())
             $("#content").css("opacity", "0.05")
