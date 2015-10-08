@@ -33,7 +33,7 @@ class Node < ActiveRecord::Base
     body = unspecial(body)
     body = sanitize(body)
     body = body.gsub(/\r?\n/, "<br>\r\n")
-    body = body.gsub(/\[.*?\]/){|bracket| linkify bracket}
+    body = body.gsub(/\[[^\[]*?\]/){|bracket| linkify bracket}
     return body.html_safe
   end
 
@@ -57,13 +57,13 @@ class Node < ActiveRecord::Base
     return Link.new("/#{@namespace}/#{@name}/#{@author}")
   end
 
-  def self.search(field, namespace, content)
+  def self.search(field, namespace, content, limit = 10)
     matcher = content.gsub(/[_%\\]/){|x| "\\#{x}"}
     matcher = "%#{matcher}%"
     Node.where(namespace: namespace) \
         .where("#{field} LIKE ?", matcher) \
         .where("name != ?", content) \
-        .limit(10) \
+        .limit(limit) \
         .order(name: 'asc', updated_at: 'desc') \
         .pluck("distinct on (name) name, updated_at") \
         .map{|name, updated_at| Link.new("/#{namespace}/#{name}/", show_brackets: true)}
