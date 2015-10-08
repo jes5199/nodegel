@@ -21,7 +21,7 @@ class NodeController < ApplicationController
       @your_node.noun_type = params[:noun_type]
       @your_node.save!
     else
-      NoderPresence.say_to_url(current_link.to_href, {user: current_user.to_s, action: 'arrived'})
+      NoderPresence.say_to_url(current_link.to_href, {user: current_user.to_s, action: 'arrived', when: Time.now.to_i})
     end
     from_link = Link.from_referrer(request.referrer)
     if from_link

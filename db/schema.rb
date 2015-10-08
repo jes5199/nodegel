@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 7) do
+ActiveRecord::Schema.define(version: 8) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,18 @@ ActiveRecord::Schema.define(version: 7) do
   add_index "nodes", ["namespace"], name: "index_nodes_on_namespace", using: :btree
   add_index "nodes", ["users_id"], name: "index_nodes_on_users_id", using: :btree
 
+  create_table "presences", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "namespace"
+    t.string   "name"
+    t.string   "previous_namespace"
+    t.string   "previous_name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "presences", ["user_id"], name: "index_presences_on_user_id", using: :btree
+
   create_table "softlinks", force: :cascade do |t|
     t.string   "namespace",              null: false
     t.string   "from_name",              null: false
@@ -71,4 +83,5 @@ ActiveRecord::Schema.define(version: 7) do
   add_foreign_key "invites", "users", column: "created_user_id"
   add_foreign_key "invites", "users", column: "from_user_id"
   add_foreign_key "nodes", "users", column: "author_id"
+  add_foreign_key "presences", "users"
 end
