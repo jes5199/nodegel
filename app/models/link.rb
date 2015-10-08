@@ -9,8 +9,8 @@ class Link
   attr_reader :namespace, :name, :author
 
   def self.to(namespace, name, author = nil, extra = {})
-      namespace = reslash(namespace)
-      name = reslash(name)
+      namespace = deslash(namespace)
+      name = deslash(name)
       if author
         Link.new("/#{namespace}/#{name}/#{author}", extra)
       else
