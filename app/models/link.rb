@@ -8,6 +8,15 @@ class Link
   end
   attr_reader :namespace, :name, :author
 
+  def self.to(namespace, name, author = nil, extra = {})
+      namespace = reslash(namespace)
+      name = reslash(name)
+      if author
+        Link.new("/#{namespace}/#{name}/#{author}", extra)
+      else
+        Link.new("/#{namespace}/#{name}", extra)
+      end
+  end
 
   def hash
     [Link, @namespace, @name, @author, @text].hash
@@ -25,8 +34,16 @@ class Link
     return format_href(@namespace, @name, @author)
   end
 
-  def fake_slash
+  def self.fake_slash
     return "\u2215"
+  end
+
+  def self.reslash(urlpart)
+    urlpart.gsub(fake_slash, '/')
+  end
+
+  def self.deslash(urlpart)
+    urlpart.gsub('/', fake_slash)
   end
 
   def unfakespace(s)
@@ -64,7 +81,7 @@ class Link
     else
       namespace = nil
       author = nil
-      name = link.gsub('/', fake_slash).strip
+      name = self.reslash(link).strip
     end
     if namespace =~ /^\s+$/
       namespace = " "
@@ -81,12 +98,8 @@ class Link
     return namespace, name, author
   end
 
-  def deslash(urlpart)
-    urlpart.gsub('/', "\u2215")
-  end
-
   def d(urlpart)
-    return deslash(urlpart)
+    return self.deslash(urlpart)
   end
 
   def format_link(namespace, name, author, text)

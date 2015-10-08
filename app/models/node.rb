@@ -54,7 +54,7 @@ class Node < ActiveRecord::Base
   end
 
   def link
-    return Link.new("/#{@namespace}/#{@name}/#{@author}")
+    return Link.to(@namespace, @name, @author)
   end
 
   def self.search(field, namespace, content, limit = 10)
@@ -66,6 +66,6 @@ class Node < ActiveRecord::Base
         .limit(limit) \
         .order(name: 'asc', updated_at: 'desc') \
         .pluck("distinct on (name) name, updated_at") \
-        .map{|name, updated_at| Link.new("/#{namespace}/#{name}/", show_brackets: true)}
+        .map{|name, updated_at| Link.to(namespace, name, nil, show_brackets: true)}
   end
 end

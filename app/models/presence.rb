@@ -20,10 +20,10 @@ class Presence < ActiveRecord::Base
   end
 
   def previous_link
-    Link.new("/#{previous_namespace}/#{previous_name}")
+    Link.to(previous_namespace, previous_name)
   end
 
   def to_link
-    Link.new("/#{namespace}/#{name}")
+    Link.to(namespace, name)
   end
 end

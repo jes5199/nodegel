@@ -17,7 +17,7 @@ class NodeController < ApplicationController
     @name = params[:name]
     @nodes = Node.where(name: @name, namespace: @namespace).order(updated_at: :desc)
     @your_node = @nodes.where(author: current_user).first() || Node.new(name: @name, author: current_user, namespace: @namespace)
-    current_link = Link.new("/#{@namespace}/#{@name}")
+    current_link = Link.to(@namespace,@name)
 
     if request.post?
       @your_node.body = params[:node]
@@ -45,11 +45,11 @@ class NodeController < ApplicationController
     @namespace = params[:namespace]
     @name = params[:name]
     if @name.present?
-      to_link = Link.new("/#{@namespace}/#{@name}")
+      to_link = Link.to(@namespace, @name)
     elsif from_link
       to_link = from_link
     else
-      to_link = Link.new("/*/welcome home")
+      to_link = Link.to("*", "welcome home")
     end
     Softlink.traverse(from_link, to_link)
     return redirect_to(to_link.to_href)
