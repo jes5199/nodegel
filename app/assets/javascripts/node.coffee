@@ -10,8 +10,13 @@ $(document).ready((event) ->
     uri    = scheme + window.document.location.host + window.document.location.pathname
     ws     = new WebSocket(uri)
     ws.onmessage = (message) ->
+        console.log("a message!")
         data = JSON.parse(message.data)
         console.log(data)
+    ws.onerror = (evt) ->
+        console.log("websocket error")
+    ws.onclose = (event) ->
+        console.log("websocket closed")
 )
 
 

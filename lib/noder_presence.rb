@@ -19,8 +19,8 @@ class NoderPresence
   def say_to_url(url, data)
     p [:saying, url, data]
     @url_clients[url].each do |client|
-      p [client, data]
-      client.send(event.data)
+      p [:saying, url, client.object_id]
+      client.send(JSON.dump(data))
     end
   end
 
@@ -28,7 +28,7 @@ class NoderPresence
     if Faye::WebSocket.websocket?(env)
       ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
       ws.on :open do |event|
-        url = URI.parse(ws.url).path
+        url = URI.parse(RespaceUrl.unspace(ws.url)).path
         p [:open, ws.object_id, url]
         @client_urls[ws] = url
         @url_clients[url] << ws
