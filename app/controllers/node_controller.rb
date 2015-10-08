@@ -1,5 +1,8 @@
 class NodeController < ApplicationController
   def node
+    if not current_user
+      return redirect_to('/')
+    end
     if URI.parse(request.env["REQUEST_URI"]).path != URI.parse(request.url).path
       return redirect_to(request.url)
     end
@@ -10,7 +13,6 @@ class NodeController < ApplicationController
     if @namespace != "*"
       return render :not_ready
     end
-    NoderPresence.say_to_url("/*/welcome%20home", {user: "bob", presence: 2, action: 'is', when: Time.now.to_i, verbing: Time.now.to_i})
 
     @name = params[:name]
     @nodes = Node.where(name: @name, namespace: @namespace).order(updated_at: :desc)

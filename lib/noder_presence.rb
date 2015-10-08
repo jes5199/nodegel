@@ -26,21 +26,32 @@ class NoderPresence
 
   def call(env)
     if Faye::WebSocket.websocket?(env)
-      ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
+      ws = Faye::WebSocket.new(env)
       ws.on :open do |event|
-        url = URI.parse(RespaceUrl.unspace(ws.url)).path
-        p [:open, ws.object_id, url]
-        @client_urls[ws] = url
-        @url_clients[url] << ws
+        begin
+            url = URI.parse(RespaceUrl.unspace(ws.url)).path
+            @client_urls[ws] = url
+            @url_clients[url] << ws
+            ws.send("{\"hello\": 1}")
+        rescue => e
+            print e
+        end
       end
       ws.on :message do |event|
-        p [:message, ws.object_id, url, event.data]
+        begin
+            p(event.data)
+        rescue => e
+            print e
+        end
       end
       ws.on :close do |event|
-        url = @client_url.delete(ws)
-        p [:close, ws.object_id, url, event.code, event.reason]
-        @url_clients[url].delete(ws)
-        ws = nil
+        begin
+            url = @client_urls.delete(ws)
+            @url_clients[url].delete(ws)
+            ws = nil
+        rescue => e
+            print e
+        end
       end
 
       ws.rack_response
