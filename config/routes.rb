@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post '/ /log out', to: 'user#logout'
 
   get '/ /go', to: 'node#go'
+  post '/ /go', to: 'node#go'
   get ':namespace/:name/:author', to: 'node#zoom', :constraints => {:namespace => /[^\/]+/, :name => /[^\/]+/, :author => /[^\/]+/}
   get ':namespace/:name', to: 'node#node', :constraints => {:namespace => /[^\/]+/, :name => /[^\/]+/}
   post ':namespace/:name', to: 'node#node', :constraints => {:namespace => /[^\/]+/, :name => /[^\/]+/}

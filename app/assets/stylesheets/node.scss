@@ -55,10 +55,6 @@ a.new-link {
   color: MediumVioletRed;
 }
 
-a.nodeshell {
-  color: red;
-}
-
 h1 {
   font-size: 24px;
 }
@@ -124,6 +120,10 @@ label.login {
   display: inline-block;
   text-align: right;
   padding: 10px;
+}
+
+label.visible-label {
+  color: lightgreen;
 }
 
 .denied {

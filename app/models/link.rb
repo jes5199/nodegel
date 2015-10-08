@@ -114,7 +114,7 @@ class Link
 
   def self.from_referrer(referrer)
     if referrer
-      uri = URI.parse(request.referrer)
+      uri = URI.parse(referrer)
       return Link.new(URI.decode(uri.path).force_encoding("utf-8"))
     end
   end
