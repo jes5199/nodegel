@@ -52,7 +52,7 @@ class Link
 
   def parse_link(link)
     if !link || link.strip.empty?
-        link = @from_node.to_s
+      link = @from_node.to_s
     end
     if link == '/'
       return "*", "welcome home"
@@ -107,7 +107,8 @@ class Link
   end
 
   def format_link(namespace, name, author, text)
-    alive_nodes = Node.where(name: d(name), namespace: namespace || @from_node.namespace )
+    #TODO: support namespace aliveness
+    alive_nodes = Node.where(name: d(name.to_s), namespace: namespace || @from_node.namespace )
     if author
       alive_nodes = alive_nodes.where(author: User.find_by_name(author))
     end

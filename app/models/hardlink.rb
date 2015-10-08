@@ -2,6 +2,9 @@ class Hardlink
   def initialize(content, current_node)
     @content = content
     @current_node = current_node
+    if not @current_node
+      raise self.inspect
+    end
   end
 
   def to_s

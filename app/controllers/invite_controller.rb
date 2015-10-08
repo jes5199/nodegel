@@ -54,6 +54,7 @@ class InviteController < ApplicationController
   def activate
     invite_index = params[:invite_number].to_i
     @invite = Invite.where(from_user: current_user).all[invite_index]
+    raise invite.inspect
     @invite.activate
     redirect_to "/%20/invite"
   end
