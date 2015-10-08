@@ -79,6 +79,26 @@ span.node-edit-linky {
   color:#AAA;
 }
 
+select.noun-type {
+  color: #AAA;
+  background: transparent;
+  font-size: 24px;
+  font-family: 'Open Sans', Verdana, sans-serif;
+}
+
+.noun-type-person {
+  color: lightblue;
+}
+.noun-type-place {
+  color: green;
+}
+.noun-type-thing {
+  color: brown;
+}
+.noun-type-idea {
+  color: orange;
+}
+
 ul {
     text-align: left;
     vertical-align: center;

@@ -15,6 +15,7 @@ class NodeController < ApplicationController
     @your_node = @nodes.where(author: current_user).first() || Node.new(name: @name, author: current_user, namespace: @namespace)
     if request.post?
       @your_node.body = params[:node]
+      @your_node.noun_type = params[:noun_type]
       @your_node.save!
     end
     to_link = Link.new("/#{@namespace}/#{@name}")

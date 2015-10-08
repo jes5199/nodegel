@@ -4,7 +4,7 @@
     <% if node.author == current_user %>
         <label class="node-edit" for="node-edit">
     <% end %>
-    <%= node.name %> by <%= node.author.name %>, <%= node.written_or_updated %> <%= node.node_time %>
+    <%= node.name %> <%= render partial: 'noun_type', locals: {noun_type: node.noun_type || 'idea'} %> by <%= node.author.name %>, <%= node.written_or_updated %> <%= node.node_time %>
     <% if node.author == current_user %>
         <span class="node-edit-linky">[edit!]</span></label>
     <% end %>

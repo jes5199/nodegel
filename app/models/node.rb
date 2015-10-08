@@ -1,5 +1,6 @@
 class Node < ActiveRecord::Base
   belongs_to :author, class_name: "User"
+  validates_inclusion_of :noun_type, :in => %w[person place thing idea], :allow_nil => true
 
   def allowed_tags
       %w[i em strong b]
