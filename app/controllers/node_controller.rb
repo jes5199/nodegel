@@ -17,13 +17,21 @@ class NodeController < ApplicationController
       @your_node.body = params[:node]
       @your_node.save!
     end
-    if request.referrer
-      uri = URI.parse(request.referrer)
-      from_link = Link.new(URI.decode(uri.path).force_encoding("utf-8"))
-      to_link = Link.new("/#{@namespace}/#{@name}")
+    to_link = Link.new("/#{@namespace}/#{@name}")
+    from_link = Link.from_referrer(request.referrer)
+    if from_link
       Softlink.traverse(from_link, to_link)
     end
     @softlinks = Softlink.where(namespace: @namespace, from_name: @name).order("traversals / Extract(EPOCH from (Now() - created_at)) DESC").limit(10)
+  end
+
+  def go
+    @namespace = params[:namespace]
+    @name = params[:name]
+    to_link = Link.new("/#{@namespace}/#{@name}")
+    from_link = Link.from_referrer(request.referrer)
+    Softlink.traverse(from_link, to_link)
+    return redirect_to(to_link.to_href)
   end
 
   def zoom

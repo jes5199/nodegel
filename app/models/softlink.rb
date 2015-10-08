@@ -2,6 +2,7 @@ class Softlink < ActiveRecord::Base
   validate :from_and_to_must_be_different
 
   def self.traverse(from_link, to_link)
+    return unless from_link && to_link
     return if from_link.namespace != to_link.namespace
     return if from_link.name == to_link.name
 

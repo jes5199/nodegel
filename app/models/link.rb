@@ -12,6 +12,10 @@ class Link
     return format_link(@namespace, @name, @author, link_text)
   end
 
+  def to_href
+    return format_href(@namespace, @name, @author)
+  end
+
   def fake_slash
     return "\u2215"
   end
@@ -82,23 +86,36 @@ class Link
       alive_nodes = alive_nodes.where(author: User.find_by_name(author))
     end
     alive = alive_nodes.any?
+    href = format_href(namespace, name, author)
+    return ("<a href=\"" + href + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + link_text + "</a>").html_safe
+  end
+
+  def format_href(namespace, name, author)
+    href = ""
     if namespace
-      link = "/" + d(namespace)
+      href = "/" + d(namespace)
       if name
-         link += "/" + d(name)
+         href += "/" + d(name)
       end
     else
-      link = "./" + d(name)
+      href = "./" + d(name)
     end
     if author
-      link += "/" + d(author)
+      href += "/" + d(author)
     end
-    return ("<a href=\"" + link + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + link_text + "</a>").html_safe
+    return URI.encode(href)
   end
 
   def link_text
     text = (@text || @name || @namespace || '').strip
     text = "[#{text}]" if @show_brackets
     return text
+  end
+
+  def self.from_referrer(referrer)
+    if referrer
+      uri = URI.parse(request.referrer)
+      return Link.new(URI.decode(uri.path).force_encoding("utf-8"))
+    end
   end
 end
