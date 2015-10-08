@@ -20,6 +20,8 @@ class NodeController < ApplicationController
     if request.referrer
       uri = URI.parse(request.referrer)
       from_link = Link.new(URI.decode(uri.path).force_encoding("utf-8"))
+      to_link = Link.new("/#{@namespace}/#{@name}")
+      Softlink.traverse(from_link, to_link)
       if from_link.namespace == @namespace
         softlink = Softlink.find_or_create_by(namespace: @namespace, from_name: from_link.name, to_name: @name)
         softlink.traversals += 1

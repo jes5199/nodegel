@@ -51,4 +51,8 @@ class Node < ActiveRecord::Base
       return "updated"
     end
   end
+
+  def link
+    return Link.new("/#{@namespace}/#{@name}/#{@author}")
+  end
 end
