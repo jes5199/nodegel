@@ -73,7 +73,7 @@ class Link
           author = nil
         end
       end
-      name = parts.join(fake_slash)
+      name = parts.join(self.class.fake_slash)
       name = name.strip
       if name.empty?
         name = nil
@@ -81,7 +81,7 @@ class Link
     else
       namespace = nil
       author = nil
-      name = self.reslash(link).strip
+      name = self.class.reslash(link).strip
     end
     if namespace =~ /^\s+$/
       namespace = " "
