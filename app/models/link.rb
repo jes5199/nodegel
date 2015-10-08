@@ -102,8 +102,12 @@ class Link
     return self.class.deslash(urlpart)
   end
 
+  def r(urlpart)
+    return self.class.reslash(urlpart)
+  end
+
   def format_link(namespace, name, author, text)
-    alive_nodes = Node.where(name: name, namespace: namespace || @from_node.namespace )
+    alive_nodes = Node.where(name: r(name), namespace: namespace || @from_node.namespace )
     if author
       alive_nodes = alive_nodes.where(author: User.find_by_name(author))
     end
