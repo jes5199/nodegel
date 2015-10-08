@@ -1,9 +1,7 @@
-<div>
 <% if invite.created_user %>
-    an invitation was used by <%= invite.created_user %>
+  <li><nobr>an invitation was used by <%= invite.created_user %></nobr></li>
 <% elsif invite.key.blank? %>
-    an inactive invitation <%= form_tag "/%20/invite", method: "post", style: "display:inline" do %><input type="submit" value="[activate]"></input><input type="hidden" name="invite_number" value="<%= invite_counter %>"><% end %>
+  <li style="list-style-type: square">an inactive invitation <%= form_tag "/%20/invite", method: "post", style: "display:inline" do %><input type="submit" value="[activate]"></input><input type="hidden" name="invite_number" value="<%= invite_counter %>"><% end %></li>
 <% else %>
-    tell one trusted friend their code word is "<em><%= invite.key %></em>"
+  <li style="list-style-type: armenian"><nobr>tell one trusted friend their code word is</nobr><br>"<em><%= invite.key %></em>"</li>
 <% end %>
-</div>
