@@ -5,7 +5,7 @@ class Invite < ActiveRecord::Base
   def random_word
     @random ||= Random.new
     @@words ||= File.open(Rails.root + "lib/words").each_line.to_a
-    return @@words[@random.rand(@words.length)].downcase.strip
+    return @@words[@random.rand(@@words.length)].downcase.strip
   end
 
   def activate

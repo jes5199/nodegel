@@ -4,7 +4,7 @@
   <li>you don't have any yet. bug jes about it.</li>
 <% end %>
 <%= render partial: "invite", collection: @invites, locals: {current_user: @current_user} %>
-<% if @total > 0 and @unused == 0 or true%>
+<% if @total > 0 and @unused == 0 %>
   <li style="list-style-type: circle">you don't have any spares right now.<br>Consider bugging jes for more.</li>
 <% end %>
 </ul>
