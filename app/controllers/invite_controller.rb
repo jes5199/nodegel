@@ -3,7 +3,7 @@ class InviteController < ApplicationController
     if !current_user
       return redirect_to("/%20/sign%20up")
     end
-    @invites = Invite.where(from_user: current_user)
+    @invites = Invite.where(from_user: current_user).order(:id)
     @total = @invites.count
     @unused = @invites.where(created_user: nil)
   end
@@ -53,8 +53,7 @@ class InviteController < ApplicationController
 
   def activate
     invite_index = params[:invite_number].to_i
-    @invite = Invite.where(from_user: current_user).all[invite_index]
-    raise invite.inspect
+    @invite = Invite.where(from_user: current_user).order(:id).all[invite_index]
     @invite.activate
     redirect_to "/%20/invite"
   end
