@@ -2,11 +2,11 @@
 <div>
   <h2>
     <% if node.author == current_user %>
-        <label for="node-edit">
+        <label class="node-edit" for="node-edit">
     <% end %>
     <%= node.name %> by <%= node.author.name %>, <%= node.written_or_updated %> <%= node.node_time %>
     <% if node.author == current_user %>
-        [edit!]</label>
+        <span class="node-edit-linky">[edit!]</span></label>
     <% end %>
   </h2>
   <div><%= node.render_body %></div>

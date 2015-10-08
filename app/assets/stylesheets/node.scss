@@ -68,7 +68,15 @@ h2.softlinks {
 }
 
 h2.search-results {
-      transform: skew(10deg, 0deg);
+  transform: skew(10deg, 0deg);
+}
+
+h2.node-edit {
+  color:#AAA;
+}
+
+span.node-edit-linky {
+  color:#AAA;
 }
 
 ul {
