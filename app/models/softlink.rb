@@ -11,8 +11,9 @@ class Softlink < ActiveRecord::Base
         to_name: to_link.name
     )
     softlink.traversals += 1
-    softlink.save!
-    return softlink
+    if softlink.save
+      return softlink
+    end
   end
 
   def from_and_to_must_be_different
