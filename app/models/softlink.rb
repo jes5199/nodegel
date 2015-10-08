@@ -26,6 +26,6 @@ class Softlink < ActiveRecord::Base
   end
 
   def to_s
-    Link.new(self.namespace, self.to_name, nil, show_brackets: true).to_s
+    Link.to(self.namespace, self.to_name, nil, show_brackets: true).to_s
   end
 end
