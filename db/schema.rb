@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 6) do
+ActiveRecord::Schema.define(version: 7) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 6) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "softlinks", ["namespace", "from_name", "to_name"], name: "index_softlinks_on_namespace_and_from_name_and_to_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
