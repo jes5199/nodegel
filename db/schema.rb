@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 8) do
     t.datetime "updated_at",         null: false
   end
 
-  add_index "presences", ["user_id"], name: "index_presences_on_user_id", using: :btree
+  add_index "presences", ["user_id"], name: "index_presences_on_user_id", unique: true, using: :btree
 
   create_table "softlinks", force: :cascade do |t|
     t.string   "namespace",              null: false
