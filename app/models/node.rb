@@ -35,7 +35,7 @@ class Node < ActiveRecord::Base
     body = sanitize(body)
     body = body.gsub(/\r?\n/, "<br>\r\n")
     body = body.gsub(/\[[^\[]*?\]/){|bracket| linkify bracket}
-    annotationlinks.each do |annotationlink|
+    annotationlinks.order(:id).each do |annotationlink|
       body = annotationlink.annotate_html(body)
     end
     return body.html_safe
