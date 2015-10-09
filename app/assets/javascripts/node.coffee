@@ -59,6 +59,8 @@ $(document).ready((event) ->
     $('input.title').on("blur", ->
         $("#content").css("opacity", "1.0")
     )
+    $('div.node-body').on("selection", ->
+    )
 )
 
 

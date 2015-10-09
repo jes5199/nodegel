@@ -5,8 +5,19 @@ class Annotationlink < ActiveRecord::Base
   validates_format_of :text, with: SAFE_TEXT_REGEX
   validates_format_of :destination, with: SAFE_TEXT_REGEX
 
-  def annotate(content)
+  def annotate_text(content)
     content.sub(self.pattern, self.link)
+  end
+
+  def annotate_html(body)
+    html = Nokogiri::HTML("<html><body><p>"+body+"</p></body></html>")
+    html.xpath('/html/body/p/text()').each do |text|
+    if self.matches(text.content)
+      text.replace(self.annotate_text(text.content))
+        break
+      end
+    end
+    return html.xpath('/html/body/p').children.to_s
   end
 
   def matches(content)

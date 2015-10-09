@@ -35,16 +35,9 @@ class Node < ActiveRecord::Base
     body = sanitize(body)
     body = body.gsub(/\r?\n/, "<br>\r\n")
     body = body.gsub(/\[[^\[]*?\]/){|bracket| linkify bracket}
-    html = Nokogiri::HTML(body)
     annotationlinks.each do |annotationlink|
-      html.xpath('/html/body/p/text()').each do |text|
-        if annotationlink.matches(text.content)
-          text.replace(annotationlink.annotate(text.content))
-          break
-        end
-      end
+      body = annotationlink.annotate_html(body)
     end
-    body = html.xpath('/html/body/p').to_s
     return body.html_safe
   end
 
