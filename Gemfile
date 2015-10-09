@@ -35,6 +35,8 @@ gem 'faye', '~> 1.1.2'
 
 gem 'puma', '~> 2.14.0'
 
+gem 'nokogiri', '~> 1.6.6'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

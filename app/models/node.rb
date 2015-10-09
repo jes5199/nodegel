@@ -1,6 +1,7 @@
 class Node < ActiveRecord::Base
   belongs_to :author, class_name: "User"
   validates_inclusion_of :noun_type, :in => %w[person place thing idea], :allow_nil => true
+  has_many :annotationlinks
 
   def allowed_tags
       %w[i em strong b]
@@ -34,6 +35,16 @@ class Node < ActiveRecord::Base
     body = sanitize(body)
     body = body.gsub(/\r?\n/, "<br>\r\n")
     body = body.gsub(/\[[^\[]*?\]/){|bracket| linkify bracket}
+    html = Nokogiri::HTML(body)
+    annotationlinks.each do |annotationlink|
+      html.xpath('/html/body/p/text()').each do |text|
+        if annotationlink.matches(text.content)
+          text.replace(annotationlink.annotate(text.content))
+          break
+        end
+      end
+    end
+    body = html.xpath('/html/body/p').to_s
     return body.html_safe
   end
 

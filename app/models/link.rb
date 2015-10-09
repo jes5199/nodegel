@@ -4,6 +4,7 @@ class Link
     @from_node = extra[:from_node]
     @text = extra[:text]
     @show_brackets = extra[:show_brackets]
+    @klass = extra[:klass]
     @namespace, @name, @author = parse_link(@destination)
   end
   attr_reader :namespace, :name, :author
@@ -114,7 +115,7 @@ class Link
     end
     alive = alive_nodes.any?
     href = format_href(namespace, name, author)
-    return ("<a href=\"" + href + "\" class=\"" + (alive ? "link" : "new-link") + "\">" + link_text + "</a>").html_safe
+    return ("<a href=\"" + href + "\" class=\"" + (alive ? "link" : "new-link") + " " + @klass.to_s + "\">" + link_text + "</a>").html_safe
   end
 
   def format_href(namespace, name, author)
