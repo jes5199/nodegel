@@ -74,6 +74,15 @@ a.annotation-link.new-link sup{
   color: MediumVioletRed;
 }
 
+form#annotate {
+    position: absolute;
+    display: none;
+}
+
+form#annotate input {
+    border-bottom: 1px dashed white
+}
+
 h1 {
   font-size: 24px;
 }

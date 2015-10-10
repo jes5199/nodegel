@@ -1,0 +1,7 @@
+<%= form_tag 'annotate', id: 'annotate' do %>
+annotate
+<%= hidden_field_tag "namespace", @namespace %>
+<%= hidden_field_tag "name", @name %>
+<%= hidden_field_tag "text", @text %>
+<input name="destination"></input>
+<% end %>

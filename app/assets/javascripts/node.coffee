@@ -59,7 +59,14 @@ $(document).ready((event) ->
     $('input.title').on("blur", ->
         $("#content").css("opacity", "1.0")
     )
-    $('div.node-body').on("selection", ->
+    $(document).on("selectionchange", (event) ->
+        selection = document.getSelection()
+        if(selection.anchorNode == selection.focusNode &&
+        selection.anchorNode.nodeType == Node.TEXT_NODE &&
+        selection.anchorNode.parentNode.className == "node-body" &&
+        selection.anchorNode.parentNode.tagName == "DIV" )
+            text = selection.anchorNode.data.substring(selection.anchorOffset, selection.focusOffset)
+            console.log(text)
     )
 )
 
