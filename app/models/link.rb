@@ -65,6 +65,7 @@ class Link
       return @from_node.namespace, @from_node.name, nil
     end
     link = unfakespace(link)
+    link = link.split(/\s+/).join(" ")
     if link[0] == '/'
       parts = link[1..-1].split('/', -1)
       namespace = parts.shift
