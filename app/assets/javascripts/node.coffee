@@ -59,14 +59,67 @@ $(document).ready((event) ->
     $('input.title').on("blur", ->
         $("#content").css("opacity", "1.0")
     )
+
+    anchorNode = null
+    parentNode = null
+    highlightNode = null
+    startOffset = null
+    endOffset = null
+    selectionTimer = null
     $(document).on("selectionchange", (event) ->
         selection = document.getSelection()
-        if(selection.anchorNode == selection.focusNode &&
+        if(selection.anchorNode &&
+        selection.anchorNode == selection.focusNode &&
         selection.anchorNode.nodeType == Node.TEXT_NODE &&
         selection.anchorNode.parentNode.className == "node-body" &&
-        selection.anchorNode.parentNode.tagName == "DIV" )
-            text = selection.anchorNode.data.substring(selection.anchorOffset, selection.focusOffset)
-            console.log(text)
+        selection.anchorNode.parentNode.tagName == "DIV" &&
+        selection.anchorOffset != selection.focusOffset)
+            if(selectionTimer)
+                clearTimeout(selectionTimer)
+            selectionTimer = setTimeout( ->
+                $("#annotate-destination").on("blur")
+                anchorNode = selection.anchorNode
+                [startOffset, endOffset] = [selection.anchorOffset, selection.focusOffset].sort((a,b) -> return a > b)
+                region = selection.anchorNode.data
+                text = region.substring(startOffset, endOffset).trim()
+                $("form#annotate").animate({"height": "64px"}, 500)
+                show_text = text
+                if text.length > 30
+                    show_text = text.substring(0,30) + "..."
+                $("#annotate-match").text(show_text)
+                $("#annotate-destination").val(text)
+            , 1000)
+        else
+            if(selectionTimer)
+                clearTimeout(selectionTimer)
+            if ! $("#annotate-destination").is(":focus")
+                selectionTimer = setTimeout( ->
+                    $("form#annotate").animate({"height": "0px"}, 500)
+                , 100)
+    )
+
+    $("#annotate-destination").on("focus", (event) ->
+        if (anchorNode)
+            if(selectionTimer)
+                clearTimeout(selectionTimer)
+            region = anchorNode.data
+            parentNode = anchorNode.parentNode
+            text = region.substring(startOffset, endOffset)
+            $("form#annotate").animate({"height": "64px"}, 500)
+            $("#annotate-destination").val(text.trim())
+            highlighted_html = "<span class=\"highlighted-node\">" + region.substring(0, startOffset) +
+            "<span class=\"highlighted-selection\">"+ text + "</span>" + region.substring(endOffset) +
+            "</span>"
+            highlightNode = $(highlighted_html)[0]
+            parentNode.replaceChild(highlightNode, anchorNode)
+    )
+
+    $("#annotate-destination").on("blur", (event) ->
+        if(selectionTimer)
+            clearTimeout(selectionTimer)
+        if (anchorNode && $(".highlighted-node").length)
+            parentNode.replaceChild(anchorNode, highlightNode)
+        $("form#annotate").animate({"height": "64px"}, 0)
     )
 )
 

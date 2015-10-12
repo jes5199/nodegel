@@ -75,12 +75,30 @@ a.annotation-link.new-link sup{
 }
 
 form#annotate {
-    position: absolute;
-    display: none;
+    position: fixed;
+    bottom: 15px;
+    left: 0;
+    width:100%;
+    background-color: black;
+    height: 0px;
+    vertical-align: middle;
 }
 
-form#annotate input {
-    border-bottom: 1px dashed white
+#annotate-destination {
+    width: 30%
+}
+
+#annotate-match {
+    width: 30%;
+    color: white;
+    border-bottom: 1px dashed green;
+}
+
+.highlighted-node {
+}
+
+.highlighted-selection {
+    color: lightgreen;
 }
 
 h1 {

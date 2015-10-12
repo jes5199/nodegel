@@ -1,7 +1,6 @@
-<%= form_tag 'annotate', id: 'annotate' do %>
-annotate
+<%= form_tag '/%20/annotate', id: 'annotate' do %>
 <%= hidden_field_tag "namespace", @namespace %>
 <%= hidden_field_tag "name", @name %>
 <%= hidden_field_tag "text", @text %>
-<input name="destination"></input>
+<label for="annotate-destination">AnnotateLink <span id="annotate-match"></span> to </label><label class="visible-label" for="annotate-destination">[</label><input name="destination" id="annotate-destination"></input><label class="visible-label" for="annotate-destination">]</label>
 <% end %>
