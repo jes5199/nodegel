@@ -85,4 +85,15 @@ class NodeController < ApplicationController
 
     return redirect_to(node.link.to_href)
   end
+
+  def unannotate
+    if not current_user
+      return redirect_to('/')
+    end
+    annotation_link = Annotationlink.find(params[:annotation_id])
+    if annotation_link.user == current_user
+        annotation_link.destroy
+    end
+    return redirect_to(annotation_link.node.link.to_href)
+  end
 end

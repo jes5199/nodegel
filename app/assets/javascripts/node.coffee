@@ -123,6 +123,12 @@ $(document).ready((event) ->
             parentNode.replaceChild(anchorNode, highlightNode)
         $("form#annotate").animate({"height": "64px"}, 0)
     )
+
+    $(".unannotate").click((event) ->
+        annotation_id = $(event.target).attr("annotation_id")
+        $("#unannotate-annotation-id").val(annotation_id)
+        $("#unannotate-form").submit()
+    )
 )
 
 

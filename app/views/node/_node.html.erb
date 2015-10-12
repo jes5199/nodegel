@@ -9,6 +9,6 @@
         <span class="node-edit-linky">[edit!]</span></label>
     <% end %>
   </h2>
-  <div class="node-body" node_id="<%= node.id %>"><%= node.render_body %></div>
+  <div class="node-body" node_id="<%= node.id %>"><%= node.render_body(current_user) %></div>
   <br>
 </div>

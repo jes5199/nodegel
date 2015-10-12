@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post '/ /go', to: 'node#go'
   get '/ /quick', to: 'node#quick'
   post '/ /annotate', to: 'node#annotate'
+  post '/ /unannotate', to: 'node#unannotate'
   get ':namespace/:name/:author', to: 'node#zoom', :constraints => {:namespace => /[^\/]+/, :name => /[^\/]+/, :author => /[^\/]+/}
   get ':namespace/:name', to: 'node#node', :constraints => {:namespace => /[^\/]+/, :name => /[^\/]+/}
   post ':namespace/:name', to: 'node#node', :constraints => {:namespace => /[^\/]+/, :name => /[^\/]+/}

@@ -29,14 +29,14 @@ class Node < ActiveRecord::Base
     return unspecial(self.body || '')
   end
 
-  def render_body
+  def render_body(as_user = nil)
     body = self.body.to_s
     body = unspecial(body)
     body = sanitize(body)
     body = body.gsub(/\[[^\[]*?\]/){|bracket| linkify bracket}
     body = body.gsub(/\r?\n/, "<br>\r\n")
     annotationlinks.order(:id).each do |annotationlink|
-      body = annotationlink.annotate_html(body)
+      body = annotationlink.annotate_html(body, as_user)
     end
     return body.html_safe
   end

@@ -5,3 +5,6 @@
 <%= hidden_field_tag "node_id", 0, id: "annotate-node-id" %>
 <label for="annotate-destination">AnnotateLink <span id="annotate-match"></span> to </label><label class="visible-label" for="annotate-destination">[</label><input name="destination" id="annotate-destination"></input><label class="visible-label" for="annotate-destination">]</label>
 <% end %>
+<%= form_tag '/%20/unannotate', id: 'unannotate-form' do %>
+    <%= hidden_field_tag "annotation_id", 0, id: "unannotate-annotation-id" %>
+<% end %>

@@ -95,6 +95,15 @@ form#annotate {
     border-bottom: 1px dashed lightgreen;
 }
 
+.unannotate {
+    font-size: 50%;
+    cursor: pointer;
+}
+
+#unannotate-form {
+    display: none
+}
+
 .highlighted-node {
 }
 
