@@ -57,8 +57,8 @@ class Node < ActiveRecord::Base
     end
   end
 
-  def link
-    return Link.to(@namespace, @name, @author)
+  def link(to_author = false)
+    return Link.to(namespace, name, to_author ? author : nil)
   end
 
   def self.search(field, namespace, content, limit = 10)

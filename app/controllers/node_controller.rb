@@ -65,4 +65,24 @@ class NodeController < ApplicationController
     @search_results = (Node.search('name', @namespace, @name, 300) + Node.search('body', @namespace, @name, 300)).uniq
     render layout: false
   end
+
+  def annotate
+    if not current_user
+      return redirect_to('/')
+    end
+
+    @namespace = params[:namespace]
+    @name = params[:name]
+    @text = params[:text].strip
+    @destination = params[:destination].strip
+    @node_id = params[:node_id]
+
+    node = Node.find(@node_id)
+
+    if node.namespace == @namespace
+      annotationlink = Annotationlink.create!(node: node, user: current_user, text: @text, destination: @destination)
+    end
+
+    return redirect_to(node.link.to_href)
+  end
 end

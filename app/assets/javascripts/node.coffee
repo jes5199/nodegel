@@ -87,7 +87,9 @@ $(document).ready((event) ->
                 if text.length > 30
                     show_text = text.substring(0,30) + "..."
                 $("#annotate-match").text(show_text)
+                $("#annotate-text").val(text)
                 $("#annotate-destination").val(text)
+                $("#annotate-node-id").val($(selection.anchorNode.parentNode).attr("node_id"))
             , 1000)
         else
             if(selectionTimer)

@@ -79,9 +79,10 @@ form#annotate {
     bottom: 15px;
     left: 0;
     width:100%;
-    background-color: black;
     height: 0px;
     vertical-align: middle;
+    border-top: 1px solid green;
+    background-color: black;
 }
 
 #annotate-destination {
@@ -91,7 +92,7 @@ form#annotate {
 #annotate-match {
     width: 30%;
     color: white;
-    border-bottom: 1px dashed green;
+    border-bottom: 1px dashed lightgreen;
 }
 
 .highlighted-node {
@@ -247,6 +248,7 @@ hr {
 .presences {
     position: fixed;
     bottom: 0px;
+    left: 0px;
     background: black;
     width: 100%;
     text-align: left;
