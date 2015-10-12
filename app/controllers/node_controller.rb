@@ -14,7 +14,7 @@ class NodeController < ApplicationController
       return render :not_ready
     end
 
-    @name = params[:name]
+    @name = params[:name].gsub(Link.fake_question, "?")
     @nodes = Node.where(name: @name, namespace: @namespace).order(updated_at: :desc)
     @your_node = @nodes.where(author: current_user).first() || Node.new(name: @name, author: current_user, namespace: @namespace)
     current_link = Link.to(@namespace,@name)

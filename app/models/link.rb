@@ -39,6 +39,10 @@ class Link
     return "\u2215"
   end
 
+  def self.fake_question
+    return "\uFE56"
+  end
+
   def self.reslash(urlpart)
     urlpart.gsub(fake_slash, '/')
   end
@@ -132,6 +136,7 @@ class Link
     if author
       href += "/" + d(author)
     end
+    href.gsub!('?', self.class.fake_question)
     return URI.encode(href)
   end
 
