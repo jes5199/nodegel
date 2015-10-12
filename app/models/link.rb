@@ -55,6 +55,10 @@ class Link
     s.gsub("\u00A0",' ')
   end
 
+  def unfakequestion(s)
+    s.gsub(self.class.fake_question,'?')
+  end
+
   def parse_link(link)
     if !link || link.strip.empty?
       link = @from_node.to_s
@@ -69,6 +73,7 @@ class Link
       return @from_node.namespace, @from_node.name, nil
     end
     link = unfakespace(link)
+    link = unfakequestion(link)
     link = link.split(/\s+/).join(" ")
     if link[0] == '/'
       parts = link[1..-1].split('/', -1)

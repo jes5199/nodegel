@@ -13,7 +13,8 @@ class Node < ActiveRecord::Base
 
   def unspecial(text)
     text = text.gsub("\u00A0",' ')
-    text = text.gsub("\u2215",'/')
+    text = text.gsub(Link.fake_slash,'/')
+    text = text.gsub(Link.fake_question,'?')
   end
 
   def sanitize(body)
